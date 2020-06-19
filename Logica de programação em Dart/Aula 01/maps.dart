@@ -1,0 +1,36 @@
+import 'dart:io';
+
+Map<String, dynamic> register = {};
+main(List<String> args) {
+  bool conditional = true;
+  print("\x1B[2J\x1B[0;0H");
+  while (conditional) {
+    print("DIGITE UM COMANDO");
+    String comand = stdin.readLineSync();
+    if (comand == "sair") {
+      print("---- PROGRAMA FINALIZADO ---");
+      conditional = false;
+    } else if (comand == "cadastrar") {
+      print("\x1B[2J\x1B[0;0H");
+      Add();
+    } else if (comand == "imprimir") {
+      print(register);
+      print("\n");
+    } else {
+      print("ESSE COMANDO NÃO EXISTE");
+    }
+  }
+}
+
+void Add() {
+  addDataPerson("nome");
+  addDataPerson("idade");
+  addDataPerson("cidade");
+  addDataPerson("estado");
+}
+
+void addDataPerson(String value) {
+  print("Digite o seu ${value}");
+  String data = stdin.readLineSync();
+  register["${value}"] = data;
+}
