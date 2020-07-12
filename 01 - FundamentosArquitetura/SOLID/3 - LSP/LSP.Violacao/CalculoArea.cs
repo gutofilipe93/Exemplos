@@ -27,3 +27,4 @@ namespace SOLID.LSP.Violacao
         }
     }
 }
+// O Erro aqui é que a classe filho não pode ser substituivel pela classe pai, ou seja, quadrado não pode substiuir um retangulo

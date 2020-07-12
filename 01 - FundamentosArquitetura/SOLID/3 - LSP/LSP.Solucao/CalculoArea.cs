@@ -25,3 +25,5 @@ namespace SOLID.LSP.Solucao
         }
     }
 }
+
+// Só se deve criar herança de uma classe quando a classe filho(Subclasse) poder ser substituivel por sua classe pai(SuperClasse)

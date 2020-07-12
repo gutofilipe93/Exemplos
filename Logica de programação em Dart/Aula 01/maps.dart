@@ -1,6 +1,7 @@
 import 'dart:io';
 
 Map<String, dynamic> register = {};
+List<Map<String, dynamic>> registers = [];
 main(List<String> args) {
   bool conditional = true;
   print("\x1B[2J\x1B[0;0H");
@@ -14,7 +15,7 @@ main(List<String> args) {
       print("\x1B[2J\x1B[0;0H");
       Add();
     } else if (comand == "imprimir") {
-      print(register);
+      print(registers);
       print("\n");
     } else {
       print("ESSE COMANDO NÃO EXISTE");
@@ -27,6 +28,7 @@ void Add() {
   addDataPerson("idade");
   addDataPerson("cidade");
   addDataPerson("estado");
+  registers.add(register);
 }
 
 void addDataPerson(String value) {
