@@ -23,6 +23,16 @@ namespace DesignPatterns.FactoryMethod
 
             oracleCn.ExecuteCommand("select * from tabelaOracle");
             oracleCn.Close();
+
+
+            Console.WriteLine("");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("");
+
+
+            var firebaseCn = DbFactory.Database(DataBase.Firebase).CreateConnector("minhaCS").Connect();
+            firebaseCn.ExecuteCommand("Select * from tabelaSql");
+            firebaseCn.Close();
         }
     }
 }

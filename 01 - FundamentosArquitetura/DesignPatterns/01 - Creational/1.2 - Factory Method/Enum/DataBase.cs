@@ -3,6 +3,7 @@
     public enum DataBase
     {
         SqlServer,
-        Oracle
+        Oracle,
+        Firebase
     }
 }
