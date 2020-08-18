@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Observer.Observer
+namespace Observer
 {
     public interface IObserver
     {
-        string Name { get; }
-        void Notification(Product product);
+        void EnviarEmail();
     }
 }

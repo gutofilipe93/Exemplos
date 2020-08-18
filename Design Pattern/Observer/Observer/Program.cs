@@ -1,6 +1,5 @@
-﻿using Observer.Observer;
+﻿using Observer.Usuários;
 using System;
-using System.Collections.Generic;
 
 namespace Observer
 {
@@ -8,41 +7,33 @@ namespace Observer
     {
         static void Main(string[] args)
         {
-            // Notificar os cliente que o produto chegou 
-            var gustavo = new Observador("Gustavo");
-            var pedro = new Observador("Pedro");
+            ISubject controladorEmail = new ControladorEmail();
 
-            var product = new Product();            
-            product.Subscribe(pedro);
+            var usuarioA = new UsuarioA();
+            var usuarioB = new UsuarioB();
+            var usuarioC = new UsuarioC();
 
-            Console.WriteLine("");
-            Console.WriteLine("------------------");
-            Console.WriteLine("");
+            controladorEmail.Adicionar(usuarioA);
+            controladorEmail.Adicionar(usuarioB);
+            controladorEmail.Adicionar(usuarioC);
 
-            var products = GetProducts();
-            foreach (var item in products)
-            {
-                if ("Livros" == item)
-                    product.Subscribe(gustavo);
-                else
-                    product.UnSubscribe(gustavo);
+            Console.WriteLine("Os usuarios A, B e C cadastraram-se para receber as promoções. \n");
+     
+            Console.WriteLine("Enviando os emails para os usuarios assinados (usuários cadastrados).\n");
+     
 
-                product.AddProductNew(item);                
-            }
-            
+            controladorEmail.EnviarEmail();
 
-        }
+            Console.WriteLine("\nO usuário A resolveu concancelar a assinatura e não irá receber mais emails.\n");
+     
+            controladorEmail.Remover(usuarioA);
 
-        public static List<string> GetProducts()
-        {
-            return new List<string>()
-            {
-                "Whey Isolado!",
-                "PS5",
-                "Notebook",
-                "Piscina",
-                "Livros"
-            };
+            Console.WriteLine("Enviando os emails para os usuarios assinados.\n");
+            controladorEmail.EnviarEmail();
+
+            Console.ReadKey();
+
+            Console.ReadKey();
         }
     }
 }
