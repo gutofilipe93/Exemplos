@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using Shop.Models;
+
 namespace Shop.Repositories
 {
     public static class UserRepository
