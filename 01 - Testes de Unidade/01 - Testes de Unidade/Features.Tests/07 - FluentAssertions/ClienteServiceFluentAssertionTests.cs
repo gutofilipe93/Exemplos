@@ -9,6 +9,8 @@ using Xunit;
 
 namespace Features.Tests
 {
+    /*Nessa classe foi usado o Framework FluentAssert para validar os teste
+    sua vantagem é que ele possui algumas customisações e tmb ele é mais facíl de se entender o que esta realmente sendo testado*/
     [Collection(nameof(ClienteAutoMockerCollection))]
     public class ClienteServiceFluentAssertionTests
     {
