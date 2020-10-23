@@ -8,6 +8,8 @@ namespace Features.Tests
     public class ClienteFluentAssertionsTests
     {
         private readonly ClienteTestsAutoMockerFixture _clienteTestsFixture;
+
+        /*Usado para informar uma saida para o teste, no exemplo a seguir esta informando a quantidade de erros que ocorreu na validação */
         readonly ITestOutputHelper _outputHelper;
 
         public ClienteFluentAssertionsTests(ClienteTestsAutoMockerFixture clienteTestsFixture, 
