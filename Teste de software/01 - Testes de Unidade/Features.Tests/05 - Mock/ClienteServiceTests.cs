@@ -74,7 +74,7 @@ namespace Features.Tests
             var clientes = clienteService.ObterTodosAtivos();
 
             // Assert 
-            clienteRepo.Verify(r => r.ObterTodos(), Times.Once);
+            clienteRepo.Verify(r => r.ObterTodos(), Times.Once); // verifica se o teste passou por esse metodo
             Assert.True(clientes.Any());
             Assert.False(clientes.Count(c=>!c.Ativo) > 0);
         }
