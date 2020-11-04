@@ -45,12 +45,14 @@ namespace NerdStore.Vendas.Domain
                 desconto = (ValorTotal * Voucher.PercentualDesconto.Value) / 100;
 
             ValorTotal -= desconto; 
+            if(ValorTotal < 0) ValorTotal = 0;
             Desconto = desconto;   
         }
 
         private void CalcularValorPedido()
         {
             ValorTotal = PedidoItems.Sum(x => x.CalcularValor());
+            CalcularValorTotalDescontoVoucher();
         }
 
         private bool PedidoItemExistente(PedidoItem item)
@@ -124,43 +126,6 @@ namespace NerdStore.Vendas.Domain
                 pedido.TornarRascunho();
                 return pedido;
             }
-        }
-    }
-
-    public enum PedidoStatus
-    {
-        Rascunho = 0,
-        Iniciado = 1,
-        Pago = 4,
-        Entregue = 5,
-        Cancelado = 6
-    }
-
-    public class PedidoItem
-    {
-        public Guid ProdutoId { get; private set; }
-        public string ProdutoNome { get; private set; }
-        public int Quantidade { get; private set; }
-        public decimal ValorUnitario { get; private set; }
-
-        public PedidoItem(Guid produtoId, string produtoNome, int quantidade, decimal valorUnitario)
-        {
-            if (quantidade < Pedido.MIM_UNIDADES_ITEM) throw new DomainException($"Minino de {Pedido.MIM_UNIDADES_ITEM} unidades por produto");
-
-            ProdutoId = produtoId;
-            ProdutoNome = produtoNome;
-            Quantidade = quantidade;
-            ValorUnitario = valorUnitario;
-        }
-
-        internal void AdicionarUnidade(int quantidade)
-        {
-            Quantidade += quantidade;
-        }
-
-        internal decimal CalcularValor()
-        {
-            return Quantidade * ValorUnitario;
         }
     }
 }
