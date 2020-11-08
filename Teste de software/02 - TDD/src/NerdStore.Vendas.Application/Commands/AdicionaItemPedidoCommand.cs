@@ -1,10 +1,11 @@
 using System;
 using FluentValidation;
+using NerdStore.Core.Messages;
 using NerdStore.Vendas.Domain;
 
 namespace NerdStore.Vendas.Application.Commands
 {
-    public class AdicionaItemPedidoCommand
+    public class AdicionaItemPedidoCommand : Command
     {
         public Guid ClienteId { get; set; }
         public Guid ProdutoId { get; set; }
@@ -21,9 +22,10 @@ namespace NerdStore.Vendas.Application.Commands
             ValorUnitario = valorUnitario;
         }
 
-        public bool EhValido()
+        public override bool EhValido()
         {
-            return false;
+            ValidationResult = new AdicionarItemPedidoValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 
@@ -36,7 +38,30 @@ namespace NerdStore.Vendas.Application.Commands
         public static string NomeErroMsg => "Nome do produto não foi informado";
         public static string ValorErroMsg => "O valor do item precisa ser maior que 0";
 
-        // 08:46
+        public AdicionarItemPedidoValidation()
+        {
+            RuleFor(c => c.ClienteId)
+            .NotEqual(Guid.Empty)
+            .WithMessage(IdClienteErroMsg);
+
+            RuleFor(c => c.ProdutoId)
+            .NotEqual(Guid.Empty)
+            .WithMessage(IdProdutoErroMsg);
+
+            RuleFor(c => c.Nome)
+            .NotEmpty()
+            .WithMessage(NomeErroMsg);
+
+            RuleFor(c => c.Quantidade)
+            .GreaterThan(0)
+            .WithMessage(QtdMinErroMsg)
+            .LessThanOrEqualTo(Pedido.MAX_UNIDADES_ITEM)
+            .WithMessage(QtdMaxErroMsg);
+
+            RuleFor(c => c.ValorUnitario)
+            .GreaterThan(0)
+            .WithMessage(ValorErroMsg);
+        }
 
     }
 }

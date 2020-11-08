@@ -1,0 +1,34 @@
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using NerdStore.Vendas.Application.Events;
+using NerdStore.Vendas.Domain;
+
+namespace NerdStore.Vendas.Application.Commands
+{
+    public class PedidoCommandHandler : IRequestHandler<AdicionaItemPedidoCommand,bool>
+    {
+        private readonly IPedidoRepository _pedidoRepository;
+        private readonly IMediator _mediator;
+
+        public PedidoCommandHandler(IPedidoRepository pedidoRepository, IMediator mediator)
+        {
+            _pedidoRepository = pedidoRepository;
+            _mediator = mediator;
+        }
+
+  
+
+        public async Task<bool> Handle(AdicionaItemPedidoCommand message, CancellationToken cancellationToken)
+        {
+            var pedidoItem =  new PedidoItem(message.ProdutoId,message.Nome,message.Quantidade,message.ValorUnitario);
+            var pedido = Pedido.PedidoFactory.NovoPedidoRascunho(message.ClienteId);
+            pedido.AdicionarItem(pedidoItem);
+
+             _pedidoRepository.Adicionar(pedido);
+
+            pedido.AdicionarEvento(new PedidoItemAdicionadoEvent(pedido.ClienteId,pedido.Id, message.ProdutoId,message.Nome,message.ValorUnitario,message.Quantidade));
+            return await _pedidoRepository.UnitOfWork.Commit();
+        }
+    }
+}
