@@ -10,6 +10,8 @@ namespace NerdStore.Vendas.Data
     {
         private readonly IMediator _mediator;
 
+        // quando eu uso a palavra BASE no construtor eu to falando para esse contrutor que eu quero passar esse parametro especificado para o construtor pai
+        // No caso abaixo a a classe pai DbContext tem um construtor com o parametro DbContextOptions, então uso a palavra base para passa esse parametro para ela
         public VendasContext(DbContextOptions<VendasContext> options, IMediator mediator) : base(options)
         {
             _mediator = mediator;

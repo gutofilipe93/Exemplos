@@ -52,8 +52,7 @@ namespace NerdStore.Vendas.Application.Tests.Pedidos
           
           // Assert 
           Assert.False(result);
-          Assert.Contains(AdicionarItemPedidoValidation.QtdMaxErroMsg, pedidoCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));
-          
+          Assert.Contains(AdicionarItemPedidoValidation.QtdMaxErroMsg, pedidoCommand.ValidationResult.Errors.Select(c => c.ErrorMessage));          
         } 
     }
 
