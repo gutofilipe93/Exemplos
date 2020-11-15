@@ -2,16 +2,50 @@
 using NerdStore.WebApp.Tests.Config;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace NerdStore.WebApp.Tests
 {
+    [Collection(nameof(IntegrationWebTestFixtureCollection))]
     public class UsuarioTests
     {
         private readonly IntegrationTestsFixture<StartupWebTests> _testsFixture;
         public UsuarioTests(IntegrationTestsFixture<StartupWebTests> testsFixture)
         {
             _testsFixture = testsFixture;
+        }
+
+        [Fact(DisplayName = "Realizar cadastro com sucesso")]
+        [Trait("Categoria", "Interação Web - Usuário")]
+        public async Task Usuario_RealizarCadastro_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var initialResponse = await _testsFixture.Client.GetAsync("/Identity/Account/Register");
+            initialResponse.EnsureSuccessStatusCode();
+
+            var formData = new Dictionary<string, string>
+            {
+                {"Input.Email", "teste2@teste.com" },
+                {"Input.Password", "Teste@123" },
+                {"Input.ConfirmPassword", "Teste@123" }
+            };
+
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Identity/Account/Register")
+            {
+                Content = new FormUrlEncodedContent(formData)
+            };
+
+            // Act
+            var postResponse = await _testsFixture.Client.SendAsync(postRequest);
+
+            // Assert
+            var responseString = await postResponse.Content.ReadAsStringAsync();
+
+            postResponse.EnsureSuccessStatusCode();
+            Assert.Contains("Hello teste2@teste.com!", responseString);
         }
     }
 }
