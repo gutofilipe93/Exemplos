@@ -1,0 +1,22 @@
+Comandos VsCode .Net Core
+
+dotnet -h -> Lista quais são as opções possiveis. Ex: criar um novo projeto, dar um build...
+
+dotnet new -h -> Mostra quais são as opções de templates permitidas
+
+dotnet new 'template' -n 'NomeDoProjeto' -> Criando um novo projeto
+
+dotnet new 'Nome do tipo a aplicação' -> cria a aplicação de acordo com o tipo desejado
+
+dotnet new sln-n -> cria uma solution
+
+dotnet sln add 'nome do projeto que vai adicionar na solution' -> Ex: dotnet sln add PersonAdd.csproj
+
+dotnet add package 'Nome do pacote' -> dotnet add package Microsoft.EntityFrameworkCore
+
+dotnet ef migrations add initial -> Migra as classa(entidades) para tabelas do banco
+
+dotnet ef database update -> aplica a migração e atualiza o banco
+
+dotnet new 'template' -o 'nome pasta' -> Vai criar um projeto com soluction e uma pasta 
+
