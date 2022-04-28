@@ -22,7 +22,7 @@ namespace AzureBlobStorage
                 }));
                 
                 using var ms = new MemoryStream(bytes);
-                _ = await blobContainerClient.UploadBlobAsync(fileName, ms);
+                await blobContainerClient.UploadBlobAsync(fileName, ms);
 
                 
             }
