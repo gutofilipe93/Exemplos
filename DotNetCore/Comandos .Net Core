@@ -22,3 +22,5 @@ dotnet new 'template' -o 'nome pasta' -> Vai criar um projeto com soluction e um
 
 dotnet publish -c Release -o ./publish -> Usado para gerar o arquivo de deploy, Uma Obs: ele tem que ser rodado no mesmo lugar que executa o 'dotnet run'
 
+dotnet new 'template' --framework net6.0 -n 'NomeDoProjeto' ->  Cria o projeto no framework desejado 
+
