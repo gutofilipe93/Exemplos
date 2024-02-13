@@ -10,6 +10,18 @@ namespace InjecaoDependencia
     [Route("api/[controller]")]
     public class SendController : ControllerBase
     {
+
+        private readonly ISendService _sendEmailSevice;
+        private readonly ISendService _sendSmsService;
+
+        // Uma outra forma de escrever a injeção de dependencia 
+        public SendController([FromKeyedServices("EmailSend")] ISendService sendEmailSevice,
+            [FromKeyedServices("SmsSend")] ISendService sendSmsService)
+        {            
+            _sendEmailSevice = sendEmailSevice;
+            _sendSmsService = sendSmsService;
+        }
+    
         [HttpGet]
         public IActionResult Get(IServiceProvider serviceProvider, string type)
         {
